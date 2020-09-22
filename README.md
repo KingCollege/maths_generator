@@ -6,9 +6,9 @@ Live version:
 ## https://maths-generator.herokuapp.com/
 
 ## TO DO:
-- [] Fix scaling problems with heights
-- [] Add answer submission for question modals
-- [] Add more categories to API
+- [ ] Fix scaling problems with heights
+- [ ] Add answer submission for question modals
+- [ ] Add more categories to API
 
 ## API
 
