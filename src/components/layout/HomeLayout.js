@@ -124,7 +124,7 @@ const Description = styled.h1`
 class HomeLayout extends React.Component {
     constructor(props) {
         super();
-        this.maths_api_category_url = 'http://192.168.0.28:8080/maths/year4/categories?pretty';
+        this.maths_api_category_url = 'https://maths-generator.herokuapp.com/maths/year4/categories?pretty';
     }
 
     componentDidMount() {
