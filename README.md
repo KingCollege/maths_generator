@@ -10,7 +10,8 @@ Live version:
 ### Simple Fraction Arithmetics (SFA)
 
 > https://maths-generator.herokuapp.com/sfa?pretty&no_ques=${number}&no_oper=${number} 
--**no_ques**:
+
+- **no_ques**:
 > number of questions 
 - **no_oper**:
 > number of operands
@@ -18,6 +19,7 @@ Live version:
 ### Missing Angle Shape (mas)
 
 > https://maths-generator.herokuapp.com/mas?pretty&no_ques=${number}&no_sides=${number}
+
 - **no_ques**:
 > number of questions
 - **no_sides**:
