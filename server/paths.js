@@ -1,4 +1,4 @@
-const API = 'http://192.168.0.28:8080/maths/year4/';
+const API = 'https://maths-generator.herokuapp.com/maths/year4/';
 const ROUTES = {
     categories: 'categories',
     simple_fraction_arithemtics: 'sfa',
