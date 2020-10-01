@@ -126,9 +126,10 @@ const ModalBodyIntro = styled.p`
     @media only screen and (max-width: ${PRESETS.minimum_modal_width * 2}px) {
         font-size: ${(props) => props.modal_width * (PRESETS.font_size.text / (PRESETS.minimum_modal_width * 2))}px;
     }
+    @media only screen and (max-height: ${PRESETS.minimum_modal_height}px) {
+        font-size: ${(props) => props.modal_height * (PRESETS.font_size.text / (PRESETS.minimum_modal_width * 2))}px;
+    }
 `;
-
-const Canvas = styled.canvas``;
 
 class QuestionModal extends React.Component {
     constructor(props) {
@@ -170,7 +171,6 @@ class QuestionModal extends React.Component {
             window.innerWidth < PRESETS.minimum_modal_width * 2 &&
             window.innerWidth >= PRESETS.minimum_modal_width
         ) {
-            // console.log(this.canvas_ref.current);
             this.setState({
                 modal_width: this.modal_ref.current.offsetWidth,
                 modal_height: this.modal_ref.current.offsetHeight,
@@ -178,10 +178,9 @@ class QuestionModal extends React.Component {
             });
         } else if (
             this.props.show &&
-            window.innerWidth >= PRESETS.minimum_modal_width * 2 &&
-            !this.state.max_modal_width
+            ((window.innerWidth >= PRESETS.minimum_modal_width * 2 && !this.state.max_modal_width) ||
+                this.state.modal_height < PRESETS.maximum_modal_height)
         ) {
-            // console.log(this.canvas_ref.current);
             this.setState({
                 modal_width: PRESETS.minimum_modal_width * 2,
                 modal_height: this.modal_ref.current.offsetHeight,
@@ -209,13 +208,16 @@ class QuestionModal extends React.Component {
                             </ModalHeaderContent>
                         </ModalHeader>
                         <ModalBody>
-                            <ModalBodyIntro modal_width={this.state.modal_width}>
+                            <ModalBodyIntro modal_width={this.state.modal_width} modal_height={this.state.modal_height}>
                                 <strong>Question Type: {this.props.questions.code}</strong>
                                 <br />
                                 This is a maths practice paper, all questions are randomly generated. Do not close if
                                 you want to keep the questions.
                             </ModalBodyIntro>
-                            <QuestionPainter modal_width={this.state.modal_width} />
+                            <QuestionPainter
+                                modal_width={this.state.modal_width}
+                                modal_height={this.state.modal_height}
+                            />
                         </ModalBody>
                     </Modal>
                 </Container>

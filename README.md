@@ -5,27 +5,30 @@ Live version:
 
 > https://maths-generator.herokuapp.com/
 
+
 ## TO DO:
-- [ ] Fix scaling problems with heights
-- [ ] Add answer submission for question modals
+- [x] Fix scaling problems with heights
+- [x] Change UI design
+- [x] Add home page
+- [ ] Add application page
 - [ ] Add more categories to API
+- [ ] Testing
 
 ## API
 
 ### Simple Fraction Arithmetics (SFA)
 
-> https://maths-generator.herokuapp.com/sfa?pretty&no_ques=${number}&no_oper=${number} 
+> /sfa?pretty&no_ques=${number}&no_oper=${number} 
 
-- **no_ques**:
-> number of questions 
-- **no_oper**:
-> number of operands
-
+```
+no_ques: number of questions 
+no_oper: number of operands
+```
 ### Missing Angle Shape (mas)
 
-> https://maths-generator.herokuapp.com/mas?pretty&no_ques=${number}&no_sides=${number}
+> /mas?pretty&no_ques=${number}&no_sides=${number}
 
-- **no_ques**:
-> number of questions
-- **no_sides**:
-> number of sides
+```
+no_ques: number of questions 
+no_sides: number of sides
+```

@@ -27,6 +27,13 @@ const OrderedQuestions = styled.ol`
     @media only screen and (max-width: ${PRESETS.minimum_modal_width * 2}px) {
         font-size: ${(props) => props.modal_width * (PRESETS.font_size.text / (PRESETS.minimum_modal_width * 2))}px;
     }
+
+    @media only screen and (max-height: ${PRESETS.minimum_modal_height}px) {
+        font-size: ${(props) => {
+            console.log(props.modal_height * (PRESETS.font_size.text / (PRESETS.minimum_modal_width * 2)));
+            return props.modal_height * (PRESETS.font_size.text / (PRESETS.minimum_modal_width * 2));
+        }}px;
+    }
     overflow: hidden;
 `;
 
@@ -121,7 +128,8 @@ class QuestionPainter extends React.Component {
     question_size(questions) {
         const container_height = this.container_ref.current.offsetHeight;
         if (container_height === 0) return -1;
-        const question_height = Math.round(this.container_ref.current.offsetHeight / this.q_per_page);
+        const question_height = Math.round(container_height / this.q_per_page);
+        // console.log(question_height);
         this.max_page = Math.ceil(questions.length / this.q_per_page);
         return question_height;
     }
@@ -169,13 +177,22 @@ class QuestionPainter extends React.Component {
         this.q_per_page = 2;
         const question_height = this.question_size(questions);
         if (question_height < 0) return <div />;
+
+        const scale = () => {
+            return (
+                (this.props.modal_width * (10 / (PRESETS.minimum_modal_width * 2)) +
+                    this.props.modal_height * (10 / PRESETS.maximum_modal_height)) /
+                2
+            );
+        };
+
         return questions
             .slice(this.state.page * this.q_per_page, this.state.page * this.q_per_page + this.q_per_page)
             .map((q, i) => {
                 return (
                     <Questions key={i} height={question_height}>
                         {i + 1 + this.state.page * this.q_per_page}) Find the missing angle. <br />
-                        <Shape shape={q} scale={this.props.modal_width * (10 / (PRESETS.minimum_modal_width * 2))} />
+                        <Shape shape={q} scale={scale()} modal_height={this.props.modal_height} />
                     </Questions>
                 );
             });
@@ -185,7 +202,11 @@ class QuestionPainter extends React.Component {
         return (
             <QuestionListContainer>
                 <MathJax.Context input="ascii">
-                    <OrderedQuestions modal_width={this.props.modal_width} ref={this.container_ref}>
+                    <OrderedQuestions
+                        modal_width={this.props.modal_width}
+                        modal_height={this.props.modal_height}
+                        ref={this.container_ref}
+                    >
                         {this.paint(this.props.questions)}
                     </OrderedQuestions>
                 </MathJax.Context>

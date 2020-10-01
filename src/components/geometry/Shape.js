@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import PRESETS from '../presets';
 const euclidean = (coords) => {
     return Math.sqrt(coords.map((e) => Math.pow(e, 2)).reduce((a, b) => a + b));
 };
@@ -12,6 +12,10 @@ const modulo = (x, y) => {
 const Container = styled.div`
     height: ${(props) => (props.size ? props.size : 200)}px;
     width: ${(props) => (props.size ? props.size : 200)}px;
+
+    @media only screen and (max-height: ${PRESETS.minimum_modal_height}px) {
+        height: ${(props) => props.modal_height * (props.size / PRESETS.maximum_modal_height)}px;
+    }
 `;
 const Canvas = styled.canvas``;
 

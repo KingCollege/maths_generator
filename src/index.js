@@ -22,6 +22,24 @@ const GlobalStyle = createGlobalStyle`
           monospace;
       }
 
+      .hide-scroll::-webkit-scrollbar {
+          display: none;
+      }
+
+      .hide-scroll {
+        -ms-overflow-style: none;
+        scrollbar-width: none; 
+      }
+
+      .select-all {
+        -webkit-touch-callout: all; 
+        -webkit-user-select: all; 
+        -khtml-user-select: all; 
+        -moz-user-select: all;
+        -ms-user-select: all; 
+        user-select: all; 
+      }
+
       h1, p, button {
         -webkit-touch-callout: none; 
         -webkit-user-select: none; 
@@ -29,6 +47,29 @@ const GlobalStyle = createGlobalStyle`
         -moz-user-select: none;
         -ms-user-select: none; 
         user-select: none; 
+      }
+
+      button {
+        background: transparent;
+        box-shadow: 0px 0px 0px transparent;
+        border: 0px solid transparent;
+        text-shadow: 0px 0px 0px transparent;
+        
+        &:hover {
+            background: transparent;
+            box-shadow: 0px 0px 0px transparent;
+            border: 0px solid transparent;
+            text-shadow: 0px 0px 0px transparent;
+        }
+
+        &:active {
+            outline: none;
+            border: none;
+        }
+
+        &:focus {
+            outline: 0;
+        }
       }
 
 `;
