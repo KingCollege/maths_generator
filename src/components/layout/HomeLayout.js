@@ -1,32 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
-import IosArrowForward from 'react-ionicons/lib/IosArrowForward';
-import IosArrowBack from 'react-ionicons/lib/IosArrowBack';
-import { Link } from 'react-router-dom';
-
+import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
+import { Link, withRouter } from 'react-router-dom';
+import background from '../../assets/background_one.png';
 import presets from '../presets';
 
 const SPToggle = (props) => {
     return (
         <SidePanelToggler onClick={() => props.onClick()} toggle_sp={props.toggle_sp}>
             {props.toggle_sp ? (
-                <IosArrowBack color={presets.color_scheme.white} />
+                <IoIosArrowBack color={presets.color_scheme.white} size={30} />
             ) : (
-                <IosArrowForward color={presets.color_scheme.white} />
+                <IoIosArrowForward color={presets.color_scheme.white} size={30} />
             )}
         </SidePanelToggler>
-    );
-};
-
-const SPButtonPortrait = (props) => {
-    return (
-        <StyledLink selected={props.selected} to={props.to} onClick={() => props.onClick()}>
-            <ButtonTextContainer>
-                <ButtonText className={window.innerWidth > 700 ? 'margin-left' : 'margin-auto'}>
-                    {props.children}
-                </ButtonText>
-            </ButtonTextContainer>
-        </StyledLink>
     );
 };
 
@@ -40,8 +27,8 @@ const SPButton = (props) => {
                 </ButtonText>
             </ButtonTextContainer>
             <ButtonTextContainer>
-                <IosArrowForward
-                    fontSize={presets.home_layout.bt_txt_size}
+                <IoIosArrowForward
+                    size={presets.home_layout.bt_txt_size}
                     color={props.selected ? presets.color_scheme.black : presets.color_scheme.white}
                 />
             </ButtonTextContainer>
@@ -75,9 +62,13 @@ class HomeLayout extends React.Component {
         setTimeout(() => {
             this.setState({
                 toggle_sp: !this.state.toggle_sp,
+                selected_page: Object.values(this.state.menu_options).filter((nav) => {
+                    return nav.path == this.props.location.pathname;
+                })[0].name,
             });
             console.log('This will run after 1 second!');
         }, 500);
+        console.log(this.props.location);
     }
 
     componentWillUnmount() {
@@ -117,18 +108,6 @@ class HomeLayout extends React.Component {
                     <SidePanelLogo />
                     <SidePanelBody category_count={2}>
                         {Object.values(this.state.menu_options).map((o) => {
-                            if (this.state.small_width_window) {
-                                return (
-                                    <SPButtonPortrait
-                                        key={o.name}
-                                        selected={o.name == this.state.selected_page}
-                                        to={o.path}
-                                        onClick={() => this.switch_selected_page(o.name)}
-                                    >
-                                        {o.name}
-                                    </SPButtonPortrait>
-                                );
-                            }
                             return (
                                 <SPButton
                                     key={o.name}
@@ -142,7 +121,7 @@ class HomeLayout extends React.Component {
                         })}
                     </SidePanelBody>
                 </SidePanel>
-                <ContentContainer>
+                <ContentContainer className="hide-scroll">
                     <SPToggle
                         toggle_sp={this.state.toggle_sp}
                         onClick={() => {
@@ -161,18 +140,13 @@ const Container = styled.div`
     width: 100%;
     height: 100%;
     background-color: ${presets.color_scheme.grey};
-    @media only screen and (max-width: 700px) {
-        display: grid;
-        grid-template-rows: 30px 1fr;
-        overflow: auto;
-    }
 `;
 
 const ContentBody = styled.div`
     position: relative;
     width: 100%;
     height: 100%;
-    background-color: ${presets.color_scheme.white};
+
 `;
 
 const ContentContainer = styled.div`
@@ -193,15 +167,11 @@ const SidePanelToggler = styled.button`
     border-radius: 25%;
     margin-left: -12.5px;
     margin-top: 12.5px;
-    background-color: ${presets.color_scheme.black};
+    background-color: ${presets.color_scheme.light_red};
     z-index: 10;
 
     &:hover {
-        background-color: ${presets.color_scheme.black};
-    }
-
-    @media only screen and (max-width: 700px) {
-        display: none;
+        background-color: ${presets.color_scheme.light_red};
     }
 `;
 
@@ -212,15 +182,9 @@ const SidePanel = styled.div`
     height: 100%;
     transition: width 1s;
     -webkit-transition: width 1s;
-    background-color: ${presets.color_scheme.black};
-
+    background-color: ${presets.color_scheme.light_red};
     @media only screen and (max-width: 700px) {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        height: 100%;
-        transition: height 1s;
-        -webkit-transition: height 1s;
+        width: ${(props) => (props.toggle_sp ? '150' : '0')}px;
     }
 `;
 
@@ -231,9 +195,6 @@ const SidePanelLogo = styled.div`
     background-position: left center;
     background-repeat: no-repeat;
     background-size: cover;
-    @media only screen and (max-width: 700px) {
-        display: none;
-    }
 `;
 
 const SidePanelBody = styled.div`
@@ -245,12 +206,6 @@ const SidePanelBody = styled.div`
         ${(props) => (props.category_count ? props.category_count : 0)},
         ${presets.home_layout.sp_heights[50]}
     );
-    @media only screen and (max-width: 700px) {
-        display: flex;
-        align-items: center;
-        height: 100%;
-        margin: 0;
-    }
 `;
 
 const StyledLink = styled(Link)`
@@ -258,12 +213,12 @@ const StyledLink = styled(Link)`
     grid-template-columns: 5px 1fr 20px;
     padding: 0;
     text-decoration: none;
-    color: ${(props) => (props.selected ? presets.color_scheme.black : presets.color_scheme.white)};
-    background-color: ${(props) => (props.selected ? presets.color_scheme.grey : '')};
+    color: ${(props) => (props.selected ? presets.color_scheme.blue_green : presets.color_scheme.white)};
+    background-color: ${(props) => (props.selected ? presets.color_scheme.white : '')};
     transition: background-color 1s;
-    -webkit-transition: background-color 1s;
+    -webkit-transition: background-color 1s;    
     &:hover {
-        background-color: ${presets.color_scheme.blue};
+        background-color: ${presets.color_scheme.blue_green};
         color: ${presets.color_scheme.white};
         transition: background-color 1s;
         -webkit-transition: background-color 1s;
@@ -273,13 +228,6 @@ const StyledLink = styled(Link)`
         color: ${presets.color_scheme.black};
         transition: background-color 0.5s;
         -webkit-transition: background-color 0.5s;
-    }
-
-    @media only screen and (max-width: 700px) {
-        display: flex;
-        height: 100%;
-        color: ${(props) => (props.selected ? presets.color_scheme.black : presets.color_scheme.white)};
-        background-color: ${(props) => (props.selected ? presets.color_scheme.white : '')};
     }
 `;
 
@@ -304,7 +252,7 @@ const ButtonText = styled.h1`
     font-size: ${presets.home_layout.bt_txt_size};
 
     @media only screen and (max-width: 700px) {
-        font-size: ${presets.font_size.sub_text - 2}px;
+        font-size: ${presets.font_size.sub_text - 1}px;
     }
 `;
 
@@ -312,9 +260,9 @@ const ButtonSelectedBar = styled.div`
     visibility: ${(props) => (props.selected ? 'visible' : 'hidden')};
     height: 100%;
     width: 100%;
-    background-color: ${presets.color_scheme.blue};
+    background-color: ${presets.color_scheme.orange};
 `;
 
-export default HomeLayout
+export default withRouter((props) => <HomeLayout {...props} />);
 // border-bottom: 1px solid ${presets.home_layout.sp_border};
 // border-top: 1px solid ${presets.home_layout.sp_border};

@@ -11,17 +11,22 @@ const PRESETS = {
     },
     font_size: {
         title: 25,
-        sub_title: 20,
-        text: 15,
-        sub_text: 12,
+        sub_title: 18,
+        text: 13,
+        sub_text: 11,
     },
     color_scheme: {
         black: '#181818',
         blue: '#14213d',
-        orange: '#fca311',
         grey: '#e5e5e5',
         dark_grey: '#404040',
         white: '#ffffff',
+        orange: '#f4a261',
+        light_red: '#e76f51',
+        yellow: '#e9c46a',
+        green: '#2a9d8f',
+        blue_green: '#264653'
+        
     },
     home_layout: {
         sp_bg: '#303841',

@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import HomeLayout from './layout/HomeLayout';
 import Home from './pages/Home';
+import Application from './pages/Application';
+
 
 const Container = styled.div`
     position: absolute;
@@ -19,7 +21,7 @@ class App extends React.Component {
                     <HomeLayout>
                         <Switch>
                             <Route path="/application">
-                                <div></div>
+                                <Application />
                             </Route>
                             <Route path="/">
                                 <Home />
