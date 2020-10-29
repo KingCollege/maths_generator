@@ -1,6 +1,25 @@
 import styled from 'styled-components';
 import presets from '../../presets';
 
+export const HandWritingTitle = styled.p`
+    font-size: ${presets.font_size.hand_title}px;
+    color: ${presets.color_scheme.blue_green};
+    font-weight: bold;
+    font-family: 'Reenie Beanie', source-code-pro, Menlo, Monaco, Consolas, 'Courier New';
+    @media only screen and (max-width: 700px) {
+        font-size: ${presets.font_size.hand_title - 3}px;
+    }
+`;
+
+export const HandWritingText = styled.p`
+    font-size: ${presets.font_size.hand_text}px;
+    color: ${presets.color_scheme.blue_green};
+    font-family: 'Reenie Beanie', source-code-pro, Menlo, Monaco, Consolas, 'Courier New';
+    @media only screen and (max-width: 700px) {
+        font-size: ${presets.font_size.hand_text - 3}px;
+    }
+`;
+
 export const Title = styled.p`
     font-size: ${presets.font_size.title}px;
     color: ${presets.color_scheme.blue_green};
@@ -34,7 +53,6 @@ export const PreText = styled.pre`
     font-size: ${presets.font_size.text}px;
     color: ${presets.color_scheme.white};
     background-color: ${presets.color_scheme.light_red};
-    max-width: 500px;
     overflow: auto;
     padding: 5px;
 

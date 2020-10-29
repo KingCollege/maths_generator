@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import HomeLayout from './layout/HomeLayout';
+import Layout from './pages/layout/Layout';
 import Home from './pages/Home';
-import Application from './pages/Application';
 
 
 const Container = styled.div`
@@ -18,16 +17,13 @@ class App extends React.Component {
         return (
             <Router>
                 <Container>
-                    <HomeLayout>
+                    <Layout>
                         <Switch>
-                            <Route path="/application">
-                                <Application />
-                            </Route>
                             <Route path="/">
                                 <Home />
                             </Route>
                         </Switch>
-                    </HomeLayout>
+                    </Layout>
                 </Container>
             </Router>
         );

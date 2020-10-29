@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { toggle_modal } from '../../redux/actions/ModalAction';
 import PRESETS from '../presets';
-import QuestionPainter from './QuestionPainter';
+import QuestionPainter from './QuestionPainter';;
 
-const Background = styled.div`
+const Background = styled.div` ;
     position: absolute;
     display: ${(props) => (props.show ? 'block' : 'none')};
-    width: 100%;
+    width: 100%;;
     height: 100%;
     background-color: black;
     opacity: 80%;
@@ -16,11 +16,10 @@ const Background = styled.div`
 `;
 
 const Container = styled.div`
-    position: absolute;
-    display: ${(props) => (props.show ? 'flex' : 'none')};
+    display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    width: fit-content;
     height: 100%;
 `;
 
@@ -44,8 +43,8 @@ const ModalHeaderContent = styled.div`
 
 const ModalHeaderTitle = styled.h1`
     font-size: ${PRESETS.font_size.title}px;
-    color: ${PRESETS.colors.grey};
-    margin: 0;
+    color: ${PRESETS.colors.grey};()()()()
+    margin: 0;;;;;
     padding: 5px 15px 5px 15px;
     border-radius: 0px 15px 15px 0px;
     -moz-border-radius: 0px 15px 15px 0px;
@@ -144,8 +143,13 @@ class QuestionModal extends React.Component {
         };
     }
 
-    componentDidMount() {
+ ;   componentDidMount() {
         window.addEventListener('resize', this.window_resize);
+        this.setState({
+            modal_width: this.modal_ref.current.offsetWidth,
+            modal_height: this.modal_ref.current.offsetHeight,
+            max_modal_width: this.modal_ref.current.offsetWidth >= PRESETS.minimum_modal_width * 2,
+        });
     }
 
     componentWillUnmount() {
@@ -154,20 +158,12 @@ class QuestionModal extends React.Component {
 
     componentDidUpdate(pre_props, pre_state) {
         // console.log(this.props.questions);
-        if (pre_props.show !== this.props.show) {
-            // console.log(this.canvas_ref.current);
-            this.setState({
-                modal_width: this.modal_ref.current.offsetWidth,
-                modal_height: this.modal_ref.current.offsetHeight,
-                max_modal_width: this.modal_ref.current.offsetWidth >= PRESETS.minimum_modal_width * 2,
-            });
-        }
+
     }
 
     // Only resize when modal is shown
     window_resize() {
         if (
-            this.props.show &&
             window.innerWidth < PRESETS.minimum_modal_width * 2 &&
             window.innerWidth >= PRESETS.minimum_modal_width
         ) {
@@ -177,7 +173,6 @@ class QuestionModal extends React.Component {
                 max_modal_width: this.modal_ref.current.offsetWidth >= PRESETS.minimum_modal_width * 2,
             });
         } else if (
-            this.props.show &&
             ((window.innerWidth >= PRESETS.minimum_modal_width * 2 && !this.state.max_modal_width) ||
                 this.state.modal_height < PRESETS.maximum_modal_height)
         ) {
@@ -191,42 +186,35 @@ class QuestionModal extends React.Component {
 
     render() {
         return (
-            <>
-                <Container show={this.props.modal_toggle}>
-                    <Modal ref={this.modal_ref} modal_width={this.state.modal_width}>
-                        <ModalHeader>
-                            <ModalHeaderContent>
-                                <ModalHeaderTitle modal_width={this.state.modal_width}>
-                                    RMaths practice paper
-                                </ModalHeaderTitle>
-                                <ModalCloseButton
-                                    onClick={() => this.props.toggle_modal(false)}
-                                    modal_width={this.state.modal_width}
-                                >
-                                    X
-                                </ModalCloseButton>
-                            </ModalHeaderContent>
-                        </ModalHeader>
-                        <ModalBody>
-                            <ModalBodyIntro modal_width={this.state.modal_width} modal_height={this.state.modal_height}>
-                                <strong>Question Type: {this.props.questions.code}</strong>
-                                <br />
-                                This is a maths practice paper, all questions are randomly generated. Do not close if
-                                you want to keep the questions.
-                            </ModalBodyIntro>
-                            <QuestionPainter
+            <Container ref={this.modal_ref}>
+                {/* <Modal ref={this.modal_ref} modal_width={this.state.modal_width}> */}
+                {/* <ModalHeader>
+                        <ModalHeaderContent>
+                            <ModalHeaderTitle modal_width={this.state.modal_width}>
+                                RMaths practice paper
+                            </ModalHeaderTitle>
+                            <ModalCloseButton
+                                onClick={() => window.print()}
                                 modal_width={this.state.modal_width}
-                                modal_height={this.state.modal_height}
-                            />
-                        </ModalBody>
-                    </Modal>
-                </Container>
-                <Background show={this.props.modal_toggle} onClick={() => this.props.toggle_modal(false)} />
-            </>
+                            >
+                                X
+                            </ModalCloseButton>
+                        </ModalHeaderContent>
+                    </ModalHeader> */}
+                {/* <ModalBody> */}
+                {/* <ModalBodyIntro modal_width={this.state.modal_width} modal_height={this.state.modal_height}>
+                            <strong>Question Type: {this.props.questions.code}</strong>
+                            <br />
+                            This is a maths practice paper, all questions are randomly generated. Do not close if
+                            you want to keep the questions.
+                        </ModalBodyIntro> */}
+                <QuestionPainter modal_width={this.state.modal_width} modal_height={this.state.modal_height} />
+                {/* </ModalBody> */}
+                {/* </Modal> */}
+            </Container>
         );
     }
 }
-
 // <Canvas
 //     ref={this.canvas_ref}
 //     width={this.state.modal_width}

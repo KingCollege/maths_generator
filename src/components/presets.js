@@ -14,19 +14,13 @@ const PRESETS = {
         sub_title: 18,
         text: 13,
         sub_text: 11,
+        hand_title: 35,
+        hand_text: 25,
     },
     color_scheme: {
-        black: '#181818',
-        blue: '#14213d',
-        grey: '#e5e5e5',
-        dark_grey: '#404040',
-        white: '#ffffff',
-        orange: '#f4a261',
-        light_red: '#e76f51',
-        yellow: '#e9c46a',
-        green: '#2a9d8f',
-        blue_green: '#264653'
-        
+        deep_blue: '#2F80ED',
+        blue: '#2D9CDB',
+        cloud: '#F3F3F3',
     },
     home_layout: {
         sp_bg: '#303841',

@@ -107,13 +107,13 @@ class QuestionPainter extends React.Component {
     }
 
     componentDidUpdate(pre_props) {
-        if (this.props.modal_toggle !== pre_props.modal_toggle) {
-            this.setState({
-                page: 0,
-            });
-            this.max_page = 1;
-            this.q_per_page = 4;
-        }
+        // if (this.props.modal_toggle !== pre_props.modal_toggle) {
+        //     this.setState({
+        //         page: 0,
+        //     });
+        //     this.max_page = 1;
+        //     this.q_per_page = 4;
+        // }
     }
 
     turn_page(dir) {
@@ -126,6 +126,10 @@ class QuestionPainter extends React.Component {
     }
 
     question_size(questions) {
+        if (this.container_ref.current == null) {
+            return;
+        }
+
         const container_height = this.container_ref.current.offsetHeight;
         if (container_height === 0) return -1;
         const question_height = Math.round(container_height / this.q_per_page);
@@ -210,17 +214,6 @@ class QuestionPainter extends React.Component {
                         {this.paint(this.props.questions)}
                     </OrderedQuestions>
                 </MathJax.Context>
-                <QuestionsFooter modal_width={this.props.modal_width}>
-                    <PageController disabled={this.state.page === 0 ? true : false} onClick={() => this.turn_page(-1)}>
-                        BACK
-                    </PageController>
-                    <PageController
-                        disabled={this.state.page === this.max_page - 1 ? true : false}
-                        onClick={() => this.turn_page(1)}
-                    >
-                        NEXT
-                    </PageController>
-                </QuestionsFooter>
             </QuestionListContainer>
         );
     }
